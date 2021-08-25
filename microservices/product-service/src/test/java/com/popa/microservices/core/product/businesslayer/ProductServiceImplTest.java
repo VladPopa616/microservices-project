@@ -3,6 +3,8 @@ package com.popa.microservices.core.product.businesslayer;
 import com.popa.api.core.product.Product;
 import com.popa.microservices.core.product.datalayer.ProductEntity;
 import com.popa.microservices.core.product.datalayer.ProductRepository;
+import com.popa.utils.exceptions.NotFoundException;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +38,11 @@ class ProductServiceImplTest {
 
         //assert
         assertThat(returnedProduct.getProductId()).isEqualTo(1);
+    }
+
+    @DisplayName("GetByProductId Product Found")
+    @Test
+    public void testGetProductByIdNotFound(){
+        assertThrows(NotFoundException.class, () -> productService.getProductById(1));
     }
 }
